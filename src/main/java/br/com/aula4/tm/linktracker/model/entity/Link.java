@@ -24,6 +24,10 @@ public class Link {
         return redirects;
     }
 
+    public void setRedirects(Long redirects) {
+        this.redirects = redirects;
+    }
+
     public String getUrl() {
         return url;
     }
