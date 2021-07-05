@@ -12,7 +12,7 @@ public class LinkExceptionHandler {
 
     @ExceptionHandler(InvalidLinkException.class)
     public ResponseEntity<?> invalidLinkExceptionHandler(InvalidLinkException e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDTO(e.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDTO(e.getMessage()));
     }
 
 
