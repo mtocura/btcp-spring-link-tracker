@@ -27,7 +27,7 @@ public class LinkController {
         return ResponseEntity.ok(linkService.createLink(linkForm));
     }
 
-    @PostMapping("/link/{linkId}")
+    @PostMapping("/invalidate/{linkId}")
     public ResponseEntity<?> invalidateLink(@PathVariable long linkId) {
         linkService.invalidateLink(linkId);
         return ResponseEntity.ok().build();
@@ -36,7 +36,9 @@ public class LinkController {
     @GetMapping("/link/{linkID}")
     public RedirectView redirect(@RequestHeader("token") String token, @PathVariable long linkID) {
         String url = linkService.redirectTo(linkID, token);
-        return new RedirectView(url);
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl(url);
+        return redirectView;
     }
 
     @GetMapping("/metrics/{linkId}")
