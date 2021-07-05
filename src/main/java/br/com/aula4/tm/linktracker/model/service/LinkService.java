@@ -35,6 +35,10 @@ public class LinkService {
     public long linkMetrics(long id) {
         Link link = linkRepository.getLinkById(id);
 
+        if(link == null) {
+            throw new InvalidLinkException("Link inválido!");
+        }
+
         return link.getRedirects();
     }
 
@@ -47,7 +51,13 @@ public class LinkService {
     }
 
     public LinkDTO invalidateLink(long id) {
-        return LinkConverter.linkEntityToDTO(linkRepository.deleteLink(id));
+        Link link = linkRepository.deleteLink(id);
+
+        if(link == null) {
+            throw new InvalidLinkException("Link inválido!");
+        }
+        
+        return LinkConverter.linkEntityToDTO(link);
     }
 
     public void incrementRedirect(long id) {
