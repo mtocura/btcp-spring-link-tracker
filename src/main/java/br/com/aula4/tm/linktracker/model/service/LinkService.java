@@ -30,9 +30,6 @@ public class LinkService {
     public LinkDTO createLink(LinkForm linkForm) {
         Link link = LinkConverter.linkFormToEntity(linkForm);
 
-        long redirects = link.getRedirects();
-        link.setRedirects(redirects++);
-
         linkRepository.addLink(link);
 
         return LinkConverter.linkEntityToDTO(link);
@@ -40,5 +37,12 @@ public class LinkService {
 
     public LinkDTO invalidateLink(long id) {
         return LinkConverter.linkEntityToDTO(linkRepository.deleteLink(id));
+    }
+
+    public void incrementRedirect(long id) {
+        Link link = linkRepository.getLinkById(id);
+        long redirects = 1l;
+        redirects += link.getRedirects();
+        link.setRedirects(redirects);
     }
 }
