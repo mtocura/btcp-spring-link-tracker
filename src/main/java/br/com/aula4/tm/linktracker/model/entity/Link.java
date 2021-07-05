@@ -4,16 +4,16 @@ public class Link {
     private Long linkID;
     private Long redirects;
     private String url;
-    private String maskedUrl;
+    private String token;
 
     public Link() {
     }
 
-    public Link(Long linkID, Long redirects, String url, String maskedUrl) {
+    public Link(Long linkID, Long redirects, String url, String token) {
         this.linkID = linkID;
         this.redirects = redirects;
         this.url = url;
-        this.maskedUrl = maskedUrl;
+        this.token = token;
     }
 
     public Long getLinkID() {
@@ -32,7 +32,7 @@ public class Link {
         return url;
     }
 
-    public String getMaskedUrl() {
-        return maskedUrl;
+    public String getToken() {
+        return token;
     }
 }
