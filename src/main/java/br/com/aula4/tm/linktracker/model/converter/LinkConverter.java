@@ -15,7 +15,7 @@ public class LinkConverter {
                 Id.generateId(),
                 0l,
                 linkForm.getUrl(),
-                maskURL(linkForm.getUrl())
+                token()
         );
     }
 
@@ -32,7 +32,7 @@ public class LinkConverter {
     public static LinkDTO linkEntityToDTO(Link link) {
         return new LinkDTO(
                 link.getLinkID(),
-                token()
+                link.getToken()
         );
     }
 
@@ -44,22 +44,6 @@ public class LinkConverter {
         }
 
         return linkDTOS;
-    }
-
-    private static String maskURL(String url) {
-        String encode = "abcdefghijklmnopqrstuvwxyz";
-        int k = 6;
-
-        char[] urlChar = url.toCharArray();
-
-        StringBuilder maskedUrl = new StringBuilder();
-
-        for(int i = 0; i < urlChar.length; i++) {
-            int posChar = (encode.indexOf(urlChar[i]) + 1 + k) % 26;
-            maskedUrl.append(encode.charAt(posChar - 1));
-        }
-
-        return maskedUrl.toString();
     }
 
     private static String token() {
@@ -76,7 +60,7 @@ public class LinkConverter {
 
         for(int i = 0; i < passDecoded.length(); i++) {
             int posChar = (encode.indexOf(passDecoded.charAt(i)) + 1 + k) % 26;
-            passEncoded.append(encode.charAt(posChar - 1));
+            passEncoded.append(encode.charAt(posChar));
         }
 
         return passEncoded.toString();
