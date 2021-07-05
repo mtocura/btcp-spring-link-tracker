@@ -22,12 +22,16 @@ public class LinkService {
         this.linkRepository = linkRepository;
     }
 
-    public String redirectTo(long id) {
+    public String redirectTo(long id, String token) {
         Link link = linkRepository.getLinkById(id);
 
-        if(link == null) {
+        if(link == null || token == null || token == "") {
             throw new InvalidLinkException("Link inválido!");
         }
+
+        long redirects = 1l;
+        redirects += link.getRedirects();
+        link.setRedirects(redirects);
 
         return link.getMaskedUrl();
     }
@@ -56,14 +60,7 @@ public class LinkService {
         if(link == null) {
             throw new InvalidLinkException("Link inválido!");
         }
-        
-        return LinkConverter.linkEntityToDTO(link);
-    }
 
-    public void incrementRedirect(long id) {
-        Link link = linkRepository.getLinkById(id);
-        long redirects = 1l;
-        redirects += link.getRedirects();
-        link.setRedirects(redirects);
+        return LinkConverter.linkEntityToDTO(link);
     }
 }
