@@ -25,7 +25,7 @@ public class LinkService {
     public String redirectTo(long id, String token) {
         Link link = linkRepository.getLinkById(id);
 
-        if(link == null || token == null || token == "") {
+        if(link == null || token == null || token == "" || !link.getToken().equals(token)) {
             throw new InvalidLinkException("Link inválido!");
         }
 
@@ -33,7 +33,7 @@ public class LinkService {
         redirects += link.getRedirects();
         link.setRedirects(redirects);
 
-        return link.getMaskedUrl();
+        return link.getUrl();
     }
 
     public long linkMetrics(long id) {
