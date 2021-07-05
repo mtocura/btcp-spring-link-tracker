@@ -1,6 +1,7 @@
 package br.com.aula4.tm.linktracker.model.service;
 
 import br.com.aula4.tm.linktracker.dto.LinkDTO;
+import br.com.aula4.tm.linktracker.exception.InvalidLinkException;
 import br.com.aula4.tm.linktracker.form.LinkForm;
 import br.com.aula4.tm.linktracker.model.converter.LinkConverter;
 import br.com.aula4.tm.linktracker.model.entity.Link;
@@ -19,6 +20,16 @@ public class LinkService {
     @Autowired
     public LinkService(LinkRepository linkRepository) {
         this.linkRepository = linkRepository;
+    }
+
+    public String redirectTo(long id) {
+        Link link = linkRepository.getLinkById(id);
+
+        if(link == null) {
+            throw new InvalidLinkException("Link inválido!");
+        }
+
+        return link.getMaskedUrl();
     }
 
     public long linkMetrics(long id) {
