@@ -29,11 +29,14 @@ public class LinkRepository {
         links.add(link);
     }
 
-    public void deleteLink(long id) {
+    public Link deleteLink(long id) {
         Optional<Link> linkOptional = links.stream().filter(link -> link.getLinkID() == id).findAny();
 
         if(linkOptional.isPresent()) {
             links.remove(linkOptional.get());
+            return linkOptional.get();
         }
+
+        return null;
     }
 }
